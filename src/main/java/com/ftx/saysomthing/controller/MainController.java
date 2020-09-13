@@ -2,6 +2,7 @@ package com.ftx.saysomthing.controller;
 
 import com.ftx.saysomthing.dao.MainMapper;
 import com.ftx.saysomthing.model.Content;
+import com.ftx.saysomthing.model.ContentVo;
 import com.ftx.saysomthing.model.Pictures;
 import com.ftx.saysomthing.utils.UUIDutil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.*;
 
 /**
@@ -82,6 +86,35 @@ public class MainController {
         }else{
             return 0;
         }
+    }
+
+    /**
+     * 得到所有朋友圈列表
+     */
+    @RequestMapping("/getAllContent")
+    public List<ContentVo> getAllContent(){
+        List<ContentVo> allContent = mainMapper.getAllContent();
+        for(ContentVo contentVo:allContent){
+            String id = contentVo.getId();
+            List<Map> picturesByContentId = mainMapper.getPicturesByContentId(id);
+            contentVo.setPictures(picturesByContentId);
+        }
+        return allContent;
+    }
+
+    //得到图片预览路径
+    private void getReviewPath(String picPath, HttpServletResponse response) throws Exception{
+        String suffix = picPath.substring(picPath.lastIndexOf("."));
+        response.setContentType("image/"+suffix);
+        FileInputStream is=new FileInputStream(new File(picPath));
+        OutputStream os=response.getOutputStream();
+        byte[] bytes=new byte[1024];
+        int length;
+        while((length=is.read(bytes))>0){
+            os.write(bytes);
+        }
+        os.close();
+        is.close();
     }
 
 }

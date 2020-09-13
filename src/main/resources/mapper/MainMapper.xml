@@ -9,5 +9,21 @@
     <insert id="insertPictures" parameterType="com.ftx.saysomthing.model.Pictures">
         insert into pictures(id,contentid,picurl,picname) values(#{id},#{contentid},#{picurl},#{picname})
     </insert>
+    <select id="getAllContent" resultType="com.ftx.saysomthing.model.ContentVo">
+    SELECT
+    a.id,
+	a.content,
+	a.times,
+	a.zan,
+	c.username,
+	c.toppicurl
+    FROM
+	content a
+	LEFT JOIN userlist c ON c.account = a.author
+	order by times desc
+    </select>
+    <select id="getPicturesByContentId" parameterType="java.lang.String" resultType="java.util.Map">
+        select * from pictures where contentid=#{contentId}
+    </select>
 
 </mapper>
