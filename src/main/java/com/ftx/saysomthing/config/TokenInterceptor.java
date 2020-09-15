@@ -27,6 +27,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         String uri = request.getRequestURI() ;
         if (uri.contains("/lifespace/login")){
             return true ;
+        }else if(uri.contains("/lifespace/uploadImage")){ //上传头像，放行
+            return true;
         }
         /** Token 验证 */
         String token = request.getHeader(jwtConfig.getHeader());

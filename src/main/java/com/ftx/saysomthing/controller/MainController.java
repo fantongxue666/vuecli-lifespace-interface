@@ -41,14 +41,23 @@ public class MainController {
     private JwtConfig jwtConfig ;
 
     /**
+     * 注册
+     */
+    @PostMapping("/register")
+    public void register(){
+
+    }
+
+    /**
      * 登录
      */
-    @RequestMapping("/login")
-    public Map login ( String userName, String passWord){
+    @PostMapping("/login")
+    public Map login (@RequestBody Map maps){
+
         Map map=new HashMap();
         Map map1=new HashMap();
-        map1.put("account",userName);
-        map1.put("pwd",passWord);
+        map1.put("account",(String)maps.get("userName"));
+        map1.put("pwd",(String)maps.get("passWord"));
         User user = mainMapper.getUserIdByAccountAndPwd(map1);
         if(user!=null){
             String token = jwtConfig.createToken(user.getId()) ;
@@ -57,6 +66,8 @@ public class MainController {
                 map.put("username",user.getUsername());
                 map.put("touxiang",user.getToppicurl());
                 map.put("account",user.getAccount());
+                map.put("code","200");
+                map.put("message","请求成功");
             }
             return map;
         }else{
@@ -97,9 +108,10 @@ public class MainController {
     public Integer saveContent(@RequestBody Map map){
         System.out.println("模拟数据库存储发表内容："+map.toString());
         String content=(String)map.get("content");
+        String user=(String)map.get("user");
         Content obj=new Content();
         obj.setId(UUIDutil.getUUID());
-        obj.setAuthor("暂无");
+        obj.setAuthor(user);
         obj.setTimes(new Date());
         obj.setContent(content);
         int i = mainMapper.insertContent(obj);
