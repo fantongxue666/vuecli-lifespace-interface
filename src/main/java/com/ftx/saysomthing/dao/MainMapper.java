@@ -3,6 +3,7 @@ package com.ftx.saysomthing.dao;
 import com.ftx.saysomthing.model.Content;
 import com.ftx.saysomthing.model.ContentVo;
 import com.ftx.saysomthing.model.Pictures;
+import com.ftx.saysomthing.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -25,4 +26,5 @@ public interface MainMapper {
     int insertPictures(Pictures pictures);
     List<ContentVo> getAllContent();
     List<Map> getPicturesByContentId(String contentId);
+    User getUserIdByAccountAndPwd(Map map);
 }

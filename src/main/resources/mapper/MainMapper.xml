@@ -25,5 +25,8 @@
     <select id="getPicturesByContentId" parameterType="java.lang.String" resultType="java.util.Map">
         select * from pictures where contentid=#{contentId}
     </select>
+    <select id="getUserIdByAccountAndPwd" parameterType="java.util.Map" resultType="com.ftx.saysomthing.model.User">
+        select * from userlist where account=#{account} and pwd=#{pwd}
+    </select>
 
 </mapper>
