@@ -28,5 +28,29 @@
     <select id="getUserIdByAccountAndPwd" parameterType="java.util.Map" resultType="com.ftx.saysomthing.model.User">
         select * from userlist where account=#{account} and pwd=#{pwd}
     </select>
+    <insert id="registerToUserList" parameterType="java.util.Map">
+        insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl})
+    </insert>
+    <insert id="toZan" parameterType="java.util.Map">
+        insert into zanlist values(#{id},#{user},#{contentid})
+    </insert>
+    <update id="changeZanNum" parameterType="java.lang.String">
+        update content set zan=zan+1 where id=#{contentid}
+    </update>
+    <select id="juigeIsZan" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from zanlist where user=#{user} and contentid=#{contentid}
+    </select>
+    <delete id="delZanByContentId" parameterType="java.lang.String">
+        delete from zanlist where id=#{id}
+    </delete>
+    <update id="RemoveZanNum" parameterType="java.lang.String">
+        update content set zan=zan-1 where id=#{contentid}
+    </update>
+    <insert id="pinglun" parameterType="java.util.Map">
+        insert into pinglun values(#{id},#{user},#{contentid},#{pinglun},#{pltime},#{userpicurl},#{account})
+    </insert>
+    <select id="getPingLunListByContentId" parameterType="java.lang.String" resultType="com.ftx.saysomthing.model.Pinglun">
+        select * from pinglun where contentid=#{contentid} order by pltime asc
+    </select>
 
 </mapper>

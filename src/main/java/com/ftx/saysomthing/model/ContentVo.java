@@ -24,6 +24,15 @@ public class ContentVo {
     private String username;
     private String toppicurl;
     private List<Map> pictures;
+    private List<Pinglun> contentList;
+
+    public List<Pinglun> getContentList() {
+        return contentList;
+    }
+
+    public void setContentList(List<Pinglun> contentList) {
+        this.contentList = contentList;
+    }
 
     public List<Map> getPictures() {
         return pictures;

@@ -1,9 +1,6 @@
 package com.ftx.saysomthing.dao;
 
-import com.ftx.saysomthing.model.Content;
-import com.ftx.saysomthing.model.ContentVo;
-import com.ftx.saysomthing.model.Pictures;
-import com.ftx.saysomthing.model.User;
+import com.ftx.saysomthing.model.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -27,4 +24,12 @@ public interface MainMapper {
     List<ContentVo> getAllContent();
     List<Map> getPicturesByContentId(String contentId);
     User getUserIdByAccountAndPwd(Map map);
+    int registerToUserList(Map map);
+    int toZan(Map map);
+    int changeZanNum(String contentid);
+    String juigeIsZan(Map map);
+    int delZanByContentId(String id);
+    int RemoveZanNum(String contentid);
+    int pinglun(Map map);
+    List<Pinglun> getPingLunListByContentId(String contentid);
 }
