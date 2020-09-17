@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/guli?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+server:
+  port: 8082
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.ftx.saysomthing.model
+
+# fastDFS文件服务器配置
+# 超时时间
+fdfs:
+  so-timeout: 1500
+  # 连接的超时时间
+  connect-timeout: 600
+  # 连接池
+  pool.jmx-enabled: false
+  # 缩略图尺寸
+  thumb-image.height: 100
+  thumb-image.width: 100
+  # tracker服务跟踪器的地址
+  tracker-list: 101.201.101.206:22122
+
+# JWT自定义配置
+config:
+  jwt:
+    # 加密密钥
+    secret: abcdefg1234567
+    # token有效时长
+    expire: 3600
+    # header 名称
+    header: token
