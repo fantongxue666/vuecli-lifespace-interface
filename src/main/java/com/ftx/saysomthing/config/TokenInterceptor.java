@@ -1,6 +1,7 @@
 package com.ftx.saysomthing.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureException;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -23,10 +24,18 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws SignatureException {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5500"); //  这里最好明确的写允许的域名
+        response.setHeader("Access-Control-Allow-Origin", "*"); //  这里最好明确的写允许的域名
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token,Authorization,ybg,token");
+
+        /**
+         * 预请求 options 直接返回
+         */
+        if (request.getMethod().equalsIgnoreCase(HttpMethod.OPTIONS.name())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return false;
+        }
 
         /** 地址过滤 */
         String uri = request.getRequestURI() ;
