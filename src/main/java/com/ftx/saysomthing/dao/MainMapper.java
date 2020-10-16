@@ -33,4 +33,6 @@ public interface MainMapper {
     int pinglun(Map map);
     List<Pinglun> getPingLunListByContentId(String contentid);
     List<User> getAllUsers();
+    int insertMessages(Map map);
+    List<Map> getAllMessages(Map map);
 }

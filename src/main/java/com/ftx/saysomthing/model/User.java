@@ -12,6 +12,15 @@ public class User {
     private String account;
     private String username;
     private String toppicurl;
+    private String status="离线";
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;

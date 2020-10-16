@@ -38,6 +38,8 @@ public class MainController {
     FastFileStorageClient fastFileStorageClient;
     @Resource
     private JwtConfig jwtConfig ;
+    public static final List<String> userMap=new ArrayList<>();//在线人数
+
 
     /**
      * 注册
@@ -47,6 +49,14 @@ public class MainController {
     map.put("id",UUIDutil.getUUID());
         int i = mainMapper.registerToUserList(map);
         return i;
+    }
+    /**
+     * 退出
+     */
+    @PostMapping("/logout")
+    public void logout(@RequestBody Map map){
+        String account = map.get("account").toString();
+        userMap.remove(account);
     }
 
     /**
@@ -69,6 +79,7 @@ public class MainController {
                 map.put("account",user.getAccount());
                 map.put("code","200");
                 map.put("message","请求成功");
+                userMap.add(user.getAccount());
             }
             return map;
         }else{
@@ -206,7 +217,40 @@ public class MainController {
         String account=map.get("user").toString();
         List<User> allUsers = mainMapper.getAllUsers();
         List<User> collect = allUsers.stream().filter(s -> !account.equals(s.getAccount())).collect(Collectors.toList());
+        //当前所在连接的用户 （在线的用户）
+        for(String key:userMap){
+            for(User user:collect){
+                if(user.getAccount().equals(key)){
+                    user.setStatus("在线");
+                }
+            }
+        }
+
         return collect;
+    }
+
+    //消息记录列表
+    @PostMapping("/getAllMessages")
+    public List<Map> getAllMessages(@RequestBody Map map){
+        List<Map> allMessages = mainMapper.getAllMessages(map);
+        String senduser = map.get("senduser").toString();
+        List<Map> maps=new ArrayList<>();
+        for(Map a:allMessages){
+            Map test=new HashMap();
+            if(senduser.equals(a.get("senduser"))){
+                test.put("type",true);
+                test.put("time",new Date());
+                test.put("content",a.get("message").toString());
+                maps.add(test);
+            }else{
+                test.put("type",false);
+                test.put("time",new Date());
+                test.put("content",a.get("message").toString());
+                maps.add(test);
+            }
+
+        }
+        return maps;
     }
 
 

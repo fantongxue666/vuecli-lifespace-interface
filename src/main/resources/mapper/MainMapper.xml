@@ -55,5 +55,11 @@
     <select id="getPingLunListByContentId" parameterType="java.lang.String" resultType="com.ftx.saysomthing.model.Pinglun">
         select * from pinglun where contentid=#{contentid} order by pltime asc
     </select>
+    <insert id="insertMessages" parameterType="java.util.Map">
+        insert into messages values(#{id},#{message},#{status},#{time},#{senduser},#{receiveuser})
+    </insert>
+    <select id="getAllMessages" parameterType="java.util.Map" resultType="java.util.Map">
+        select * from messages where (senduser=#{senduser} and receiveuser=#{receiveuser}) or (senduser=#{receiveuser} and receiveuser=#{senduser}) order by time asc
+    </select>
 
 </mapper>
