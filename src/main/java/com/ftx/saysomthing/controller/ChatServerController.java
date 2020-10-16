@@ -82,6 +82,9 @@ public class ChatServerController {
                 }
             }
 
+            //查询所有的聊天记录的总条数，如果>500条，删除所有记录，并开始保存新的记录
+
+
             //保存聊天记录
             Map map=new HashMap();
             map.put("id", UUIDutil.getUUID());
@@ -96,6 +99,8 @@ public class ChatServerController {
                 System.out.println("### 保存聊天记录异常，服务器错误 ###");
                 e.printStackTrace();
             }
+
+
 
         }
 

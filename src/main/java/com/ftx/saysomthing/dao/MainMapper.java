@@ -35,4 +35,6 @@ public interface MainMapper {
     List<User> getAllUsers();
     int insertMessages(Map map);
     List<Map> getAllMessages(Map map);
+    int updateMessageStatus(Map map);
+    int getWdMessages(Map map);
 }

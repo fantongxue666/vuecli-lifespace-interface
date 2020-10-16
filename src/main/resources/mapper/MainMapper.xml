@@ -32,7 +32,7 @@
         select * from userlist
     </select>
     <insert id="registerToUserList" parameterType="java.util.Map">
-        insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl})
+        insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl},0)
     </insert>
     <insert id="toZan" parameterType="java.util.Map">
         insert into zanlist values(#{id},#{user},#{contentid})
@@ -60,6 +60,12 @@
     </insert>
     <select id="getAllMessages" parameterType="java.util.Map" resultType="java.util.Map">
         select * from messages where (senduser=#{senduser} and receiveuser=#{receiveuser}) or (senduser=#{receiveuser} and receiveuser=#{senduser}) order by time asc
+    </select>
+    <update id="updateMessageStatus" parameterType="java.util.Map">
+        update messages set status=0 where status=1 and senduser=#{receiveuser} and receiveuser=#{senduser}
+    </update>
+    <select id="getWdMessages" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) from messages where senduser=#{senduser} and receiveuser=#{receiveuser} and status=1 order by time asc
     </select>
 
 </mapper>

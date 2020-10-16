@@ -226,11 +226,20 @@ public class MainController {
             }
         }
 
+        for(User user:collect){
+            Map map1=new HashMap();
+            map1.put("senduser",user.getAccount());
+            map1.put("receiveuser",account);
+            int wdts = mainMapper.getWdMessages(map1);
+            user.setWd(wdts);
+        }
+
         return collect;
     }
 
     //消息记录列表
     @PostMapping("/getAllMessages")
+    @Transactional
     public List<Map> getAllMessages(@RequestBody Map map){
         List<Map> allMessages = mainMapper.getAllMessages(map);
         String senduser = map.get("senduser").toString();
@@ -250,6 +259,8 @@ public class MainController {
             }
 
         }
+        //最后，把该消息全部设置为已读
+        mainMapper.updateMessageStatus(map);
         return maps;
     }
 

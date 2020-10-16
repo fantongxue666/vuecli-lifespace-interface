@@ -13,6 +13,15 @@ public class User {
     private String username;
     private String toppicurl;
     private String status="离线";
+    private Integer wd=0;
+
+    public Integer getWd() {
+        return wd;
+    }
+
+    public void setWd(Integer wd) {
+        this.wd = wd;
+    }
 
     public String getStatus() {
         return status;
