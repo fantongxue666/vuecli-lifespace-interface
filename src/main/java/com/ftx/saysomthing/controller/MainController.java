@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author FanJiangFeng
@@ -195,6 +196,17 @@ public class MainController {
         map.put("id",UUIDutil.getUUID());
         int pinglun = mainMapper.pinglun(map);
         return pinglun;
+    }
+
+    /**
+     * 用户列表
+     */
+    @PostMapping("/getAllUsers")
+    public List<User> getAllUsers(@RequestBody Map map){
+        String account=map.get("user").toString();
+        List<User> allUsers = mainMapper.getAllUsers();
+        List<User> collect = allUsers.stream().filter(s -> !account.equals(s.getAccount())).collect(Collectors.toList());
+        return collect;
     }
 
 

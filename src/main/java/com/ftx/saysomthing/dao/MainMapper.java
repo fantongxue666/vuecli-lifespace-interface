@@ -32,4 +32,5 @@ public interface MainMapper {
     int RemoveZanNum(String contentid);
     int pinglun(Map map);
     List<Pinglun> getPingLunListByContentId(String contentid);
+    List<User> getAllUsers();
 }

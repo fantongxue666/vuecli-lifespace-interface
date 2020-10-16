@@ -43,6 +43,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             return true ;
         }else if(uri.contains("/lifespace/uploadImage")){ //上传头像，放行
             return true;
+        }else if(uri.contains("/charRoomServer")){ //websocket 放行
+            return true;
         }else if(uri.contains("/lifespace/register")){ //注册，放行
             return true;
         }

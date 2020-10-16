@@ -28,6 +28,9 @@
     <select id="getUserIdByAccountAndPwd" parameterType="java.util.Map" resultType="com.ftx.saysomthing.model.User">
         select * from userlist where account=#{account} and pwd=#{pwd}
     </select>
+    <select id="getAllUsers" resultType="com.ftx.saysomthing.model.User">
+        select * from userlist
+    </select>
     <insert id="registerToUserList" parameterType="java.util.Map">
         insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl})
     </insert>
