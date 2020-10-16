@@ -32,7 +32,7 @@
         select * from userlist
     </select>
     <insert id="registerToUserList" parameterType="java.util.Map">
-        insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl},0)
+        insert into userlist values (#{id},#{account},#{username},#{password},#{imageUrl})
     </insert>
     <insert id="toZan" parameterType="java.util.Map">
         insert into zanlist values(#{id},#{user},#{contentid})
